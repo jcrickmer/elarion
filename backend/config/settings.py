@@ -117,3 +117,6 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR.parent / "frontend" / "static"]
+
+LOGIN_REDIRECT_URL = "/dashboard/"
+LOGIN_URL = "/auth/login/"

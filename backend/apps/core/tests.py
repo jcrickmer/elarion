@@ -1,5 +1,6 @@
 from django.urls import reverse
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 
 
 class TestHomePage(TestCase):
@@ -35,3 +36,33 @@ class TestHomePage(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Product Overview")
+
+    def test_authenticated_user_is_redirected_from_home_to_dashboard(self):
+        user = get_user_model().objects.create_user(
+            username="rob",
+            email="rob@example.com",
+            password="StrongPass123!",
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("home"))
+
+        self.assertRedirects(response, reverse("dashboard"))
+
+    def test_dashboard_requires_authentication(self):
+        response = self.client.get(reverse("dashboard"))
+
+        self.assertRedirects(response, f'{reverse("login")}?next={reverse("dashboard")}')
+
+    def test_authenticated_user_can_access_dashboard(self):
+        user = get_user_model().objects.create_user(
+            username="samantha",
+            email="samantha@example.com",
+            password="StrongPass123!",
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("dashboard"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Your Elarion Dashboard")
