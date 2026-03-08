@@ -10,6 +10,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 from io import StringIO
 from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.core.cache import cache
 from apps.core.management.commands.seed_dev_data import SEED_USERS
 from apps.core.models import (
@@ -310,6 +311,56 @@ class TestBootstrapDevDbCommand(SimpleTestCase):
                 self.assertTrue(db_path.parent.exists())
 
         self.assertEqual(mock_call_command.call_count, 2)
+
+
+class TestDatabaseBackupRestoreCommands(SimpleTestCase):
+    def test_backup_dev_db_creates_timestamped_snapshot(self):
+        with TemporaryDirectory() as tempdir:
+            db_path = Path(tempdir) / "elarion.sqlite3"
+            db_path.write_text("seed-db-content", encoding="utf-8")
+            with override_settings(
+                DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": str(db_path)}}
+            ):
+                call_command("backup_dev_db", label="unit")
+
+            backup_path = Path(tempdir) / "backups" / "elarion_unit.sqlite3"
+            self.assertTrue(backup_path.exists())
+            self.assertEqual(backup_path.read_text(encoding="utf-8"), "seed-db-content")
+
+    def test_backup_dev_db_requires_existing_database_file(self):
+        with TemporaryDirectory() as tempdir:
+            db_path = Path(tempdir) / "missing.sqlite3"
+            with override_settings(
+                DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": str(db_path)}}
+            ):
+                with self.assertRaises(CommandError):
+                    call_command("backup_dev_db", label="unit")
+
+    def test_restore_dev_db_copies_selected_snapshot(self):
+        with TemporaryDirectory() as tempdir:
+            db_path = Path(tempdir) / "elarion.sqlite3"
+            db_path.write_text("old-content", encoding="utf-8")
+            backup_file = Path(tempdir) / "backups" / "snapshot.sqlite3"
+            backup_file.parent.mkdir(parents=True, exist_ok=True)
+            backup_file.write_text("new-content", encoding="utf-8")
+
+            with override_settings(
+                DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": str(db_path)}}
+            ):
+                call_command("restore_dev_db", backup_file=str(backup_file))
+
+            self.assertEqual(db_path.read_text(encoding="utf-8"), "new-content")
+
+    def test_restore_dev_db_requires_existing_backup_file(self):
+        with TemporaryDirectory() as tempdir:
+            db_path = Path(tempdir) / "elarion.sqlite3"
+            db_path.write_text("old-content", encoding="utf-8")
+            missing_backup = Path(tempdir) / "backups" / "missing.sqlite3"
+            with override_settings(
+                DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": str(db_path)}}
+            ):
+                with self.assertRaises(CommandError):
+                    call_command("restore_dev_db", backup_file=str(missing_backup))
 
 
 class TestSeedDevDataCommand(TestCase):

@@ -1,7 +1,7 @@
 PYTHON := .venv/bin/python
 MANAGE := backend/manage.py
 
-.PHONY: setup check-migrations seed-dev-data seed-dev-data-reset seed-srd-baseline test
+.PHONY: setup check-migrations seed-dev-data seed-dev-data-reset seed-srd-baseline backup-db restore-db test
 setup:
 	$(PYTHON) $(MANAGE) bootstrap_dev_db
 
@@ -16,6 +16,16 @@ seed-dev-data-reset:
 
 seed-srd-baseline:
 	$(PYTHON) $(MANAGE) seed_srd_baseline
+
+backup-db:
+	$(PYTHON) $(MANAGE) backup_dev_db
+
+restore-db:
+	@if [ -z "$(BACKUP_FILE)" ]; then \
+		echo "Usage: make restore-db BACKUP_FILE=database/backups/<snapshot>.sqlite3"; \
+		exit 1; \
+	fi
+	$(PYTHON) $(MANAGE) restore_dev_db --backup-file $(BACKUP_FILE)
 
 test: check-migrations
 	$(PYTHON) $(MANAGE) test apps.core -v 2

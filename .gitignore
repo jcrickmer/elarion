@@ -62,6 +62,8 @@ db.sqlite3
 db.sqlite3-journal
 database/*.sqlite3
 database/*.sqlite3-journal
+database/backups/*.sqlite3
+database/backups/*.sqlite3-journal
 
 # Flask stuff:
 instance/

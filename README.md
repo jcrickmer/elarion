@@ -60,3 +60,13 @@ Supported include groups:
 - `spells` (requires `classes`)
 - `items`
 - `backgrounds`
+
+## SQLite Backup and Restore (DEV-26)
+- Create timestamped backup snapshot:
+  `make backup-db`
+- Restore from explicit snapshot:
+  `make restore-db BACKUP_FILE=database/backups/<snapshot>.sqlite3`
+
+Notes:
+- Backups are written under `database/backups/` as `elarion_<timestamp>.sqlite3`.
+- Restore requires an explicit file path and overwrites the current development DB.
