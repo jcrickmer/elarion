@@ -156,3 +156,9 @@ LOGGING = {
         }
     },
 }
+
+TEST_RUNNER = "apps.core.test_runner.GuardrailedDiscoverRunner"
+TEST_RUNTIME_TARGET_SECONDS = int(os.getenv("TEST_RUNTIME_TARGET_SECONDS", "45"))
+TEST_SLOW_TEST_THRESHOLD_SECONDS = float(os.getenv("TEST_SLOW_TEST_THRESHOLD_SECONDS", "0.5"))
+TEST_REPORT_PATH = str(BASE_DIR.parent / "reports" / "test-runtime-latest.json")
+KNOWN_FLAKY_TESTS = []

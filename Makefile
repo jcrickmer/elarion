@@ -1,7 +1,7 @@
 PYTHON := .venv/bin/python
 MANAGE := backend/manage.py
 
-.PHONY: setup check-migrations seed-dev-data seed-dev-data-reset seed-srd-baseline backup-db restore-db test
+.PHONY: setup check-migrations seed-dev-data seed-dev-data-reset seed-srd-baseline backup-db restore-db test test-report
 setup:
 	$(PYTHON) $(MANAGE) bootstrap_dev_db
 
@@ -29,3 +29,11 @@ restore-db:
 
 test: check-migrations
 	$(PYTHON) $(MANAGE) test apps.core -v 2
+
+test-report:
+	@if [ -f "reports/test-runtime-latest.json" ]; then \
+		cat reports/test-runtime-latest.json; \
+	else \
+		echo "No runtime report found. Run 'make test' first."; \
+		exit 1; \
+	fi
