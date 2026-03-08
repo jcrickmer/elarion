@@ -78,6 +78,56 @@ class TestHomePage(TestCase):
         self.assertContains(response, "Your Elarion Dashboard")
 
 
+class TestSignupFlow(TestCase):
+    def test_signup_page_loads(self):
+        response = self.client.get(reverse("signup"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Create account")
+        self.assertContains(response, "username")
+
+    def test_valid_signup_creates_account_and_redirects_to_login(self):
+        response = self.client.post(
+            reverse("signup"),
+            {
+                "username": "new_player",
+                "email": "new_player@example.com",
+                "password1": "StrongPass123!",
+                "password2": "StrongPass123!",
+            },
+        )
+
+        self.assertRedirects(response, f'{reverse("login")}?created=1')
+        self.assertTrue(get_user_model().objects.filter(username="new_player").exists())
+
+    def test_invalid_signup_shows_errors_and_does_not_create_user(self):
+        response = self.client.post(
+            reverse("signup"),
+            {
+                "username": "bad_signup",
+                "email": "bad_signup@example.com",
+                "password1": "StrongPass123!",
+                "password2": "DifferentPass456!",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "The two password fields")
+        self.assertFalse(get_user_model().objects.filter(username="bad_signup").exists())
+
+    def test_authenticated_user_is_redirected_from_signup_to_dashboard(self):
+        user = get_user_model().objects.create_user(
+            username="already_here",
+            email="already_here@example.com",
+            password="StrongPass123!",
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("signup"))
+
+        self.assertRedirects(response, reverse("dashboard"))
+
+
 class TestBootstrapDevDbCommand(SimpleTestCase):
     @patch("apps.core.management.commands.bootstrap_dev_db.call_command")
     def test_bootstrap_dev_db_creates_parent_dir_and_runs_migrate(self, mock_call_command):

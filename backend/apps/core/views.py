@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.urls import reverse
+from .forms import SignupForm
 
 
 def home(request):
@@ -18,4 +20,15 @@ def dashboard(request):
 
 
 def signup(request):
-    return render(request, "registration/signup.html")
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(f"{reverse('login')}?created=1")
+    else:
+        form = SignupForm()
+
+    return render(request, "registration/signup.html", {"form": form})

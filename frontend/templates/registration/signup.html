@@ -4,9 +4,40 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Elarion | Create account</title>
+    <style>
+      body { font-family: "Segoe UI", Tahoma, sans-serif; margin: 2rem auto; max-width: 560px; padding: 0 1rem; }
+      form { border: 1px solid #d1d5db; border-radius: 10px; padding: 1rem; }
+      .field { margin-bottom: 0.8rem; }
+      label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
+      input { width: 100%; padding: 0.5rem; border: 1px solid #9ca3af; border-radius: 6px; }
+      .errors { background: #fee2e2; border: 1px solid #ef4444; border-radius: 8px; padding: 0.7rem; margin-bottom: 0.8rem; }
+      button { background: #1d4ed8; color: #fff; border: 0; border-radius: 6px; padding: 0.55rem 0.9rem; cursor: pointer; }
+      a { color: #1d4ed8; }
+    </style>
   </head>
   <body>
     <h1>Create account</h1>
-    <p>Account creation workflow will be implemented in the next authentication story.</p>
+
+    <form method="post">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+      <div class="errors">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <div class="errors">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <button type="submit">Create account</button>
+    </form>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Log in</a>.</p>
   </body>
 </html>
