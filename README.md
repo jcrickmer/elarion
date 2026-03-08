@@ -10,3 +10,19 @@ Tabletop RPG collaborator for in-person play groups
    `make setup`
 
 The setup command creates the local SQLite database path and applies all Django migrations.
+
+## Migration Workflow Discipline
+- Create migrations after model changes:
+  `./.venv/bin/python backend/manage.py makemigrations`
+- Apply migrations:
+  `./.venv/bin/python backend/manage.py migrate`
+- Verify no uncommitted model changes remain:
+  `make check-migrations`
+
+`make check-migrations` runs `makemigrations --check --dry-run` and exits non-zero when model changes are missing migration files.
+
+## Test Workflow
+- Run test suite with migration guard:
+  `make test`
+
+`make test` runs `check-migrations` first, then executes Django tests.
