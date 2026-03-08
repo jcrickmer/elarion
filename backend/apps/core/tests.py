@@ -2,12 +2,15 @@ from django.urls import reverse
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.test import SimpleTestCase, override_settings
+from django.db import IntegrityError, transaction
+from django.db.models.deletion import ProtectedError
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 from io import StringIO
 from django.core.management import call_command
 from apps.core.management.commands.seed_dev_data import SEED_USERS
+from apps.core.models import Campaign, CampaignCharacter, Character, RulesSystem, World
 
 
 class TestHomePage(TestCase):
@@ -132,3 +135,66 @@ class TestSeedDevDataCommand(TestCase):
             user_model.objects.filter(username__in=[entry["username"] for entry in SEED_USERS]).count(),
             len(SEED_USERS),
         )
+
+
+class TestCoreModelConstraints(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="gm_owner",
+            email="gm_owner@example.com",
+            password="StrongPass123!",
+        )
+        self.rules = RulesSystem.objects.create(code="dnd5e-2024", name="D&D 5e", edition="2024")
+        self.world = World.objects.create(
+            name="Sable Reach", slug="sable-reach", rules_system=self.rules, gm=self.user
+        )
+
+    def test_campaign_name_must_be_unique_within_world(self):
+        Campaign.objects.create(world=self.world, name="Ashen Crown", slug="ashen-crown")
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Campaign.objects.create(world=self.world, name="Ashen Crown", slug="ashen-crown-2")
+
+    def test_character_name_must_be_unique_per_owner_per_world(self):
+        Character.objects.create(
+            world=self.world,
+            owner=self.user,
+            name="Ari Voss",
+            class_name="Ranger",
+            race_name="Human",
+            level=4,
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Character.objects.create(
+                    world=self.world,
+                    owner=self.user,
+                    name="Ari Voss",
+                    class_name="Ranger",
+                    race_name="Human",
+                    level=4,
+                )
+
+    def test_world_delete_cascades_campaigns_and_characters(self):
+        campaign = Campaign.objects.create(world=self.world, name="Ashen Crown", slug="ashen-crown")
+        character = Character.objects.create(
+            world=self.world,
+            owner=self.user,
+            name="Ari Voss",
+            class_name="Ranger",
+            race_name="Human",
+            level=4,
+        )
+        CampaignCharacter.objects.create(campaign=campaign, character=character)
+
+        self.world.delete()
+
+        self.assertEqual(Campaign.objects.count(), 0)
+        self.assertEqual(Character.objects.count(), 0)
+        self.assertEqual(CampaignCharacter.objects.count(), 0)
+
+    def test_rules_system_delete_is_protected_when_world_exists(self):
+        with self.assertRaises(ProtectedError):
+            self.rules.delete()
