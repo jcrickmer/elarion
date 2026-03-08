@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elarion GM Screen - Tailwind Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forge: {50:'#f7fee7',100:'#ecfccb',200:'#d9f99d',300:'#bef264',400:'#a3e635',500:'#84cc16',600:'#65a30d',700:'#4d7c0f',800:'#3f6212',900:'#365314'},
+            ink: {900:'#0b1120',800:'#111827',700:'#1f2937'}
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .reveal { animation: reveal .35s ease-out both; }
+    @keyframes reveal { from { opacity:0; transform: translateY(8px);} to {opacity:1; transform:translateY(0);} }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-lime-50 text-slate-800">
+  <header class="border-b border-slate-200 bg-white/95 backdrop-blur sticky top-0 z-10">
+    <div class="mx-auto max-w-[1500px] px-4 py-3 flex items-center justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-forge-700 font-semibold">Elarion GM Console</p>
+        <h1 class="text-xl font-black">Emberfall Ruins - Live Session Control</h1>
+      </div>
+      <div class="flex items-center gap-2 text-xs">
+        <span class="rounded-full bg-emerald-100 text-emerald-700 px-3 py-1 font-semibold">Session Live</span>
+        <span class="rounded-full bg-slate-100 text-slate-700 px-3 py-1 font-semibold">Players Online 4/5</span>
+        <button class="rounded-lg bg-forge-600 text-white px-3 py-1.5 font-semibold hover:bg-forge-700">Invite Player</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-[1500px] p-4 grid gap-4 lg:grid-cols-12">
+    <section class="lg:col-span-5 space-y-4 reveal">
+      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
+        <div class="flex items-center justify-between">
+          <h2 class="font-bold">Player State Matrix</h2>
+          <button class="text-xs rounded-md border px-2 py-1 hover:bg-slate-50">Bulk Update</button>
+        </div>
+        <div class="mt-3 overflow-auto">
+          <table class="w-full text-sm">
+            <thead class="text-xs text-slate-500 uppercase">
+              <tr><th class="text-left py-2">Player</th><th class="text-left">Character</th><th class="text-left">HP</th><th class="text-left">AC</th><th class="text-left">Status</th></tr>
+            </thead>
+            <tbody class="divide-y">
+              <tr><td class="py-2 font-semibold">Rob</td><td>Korin</td><td><span class="font-bold text-amber-600">8/31</span></td><td>15</td><td><span class="px-2 py-0.5 rounded bg-rose-100 text-rose-700 text-xs">In Danger</span></td></tr>
+              <tr><td class="py-2 font-semibold">Nia</td><td>Sera</td><td><span class="font-bold text-emerald-600">22/24</span></td><td>17</td><td><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs">Stable</span></td></tr>
+              <tr><td class="py-2 font-semibold">Tessa</td><td>Veyra</td><td><span class="font-bold text-emerald-600">19/20</span></td><td>13</td><td><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs">Stable</span></td></tr>
+              <tr><td class="py-2 font-semibold">Omar</td><td>Bran</td><td><span class="font-bold text-amber-600">11/28</span></td><td>16</td><td><span class="px-2 py-0.5 rounded bg-amber-100 text-amber-700 text-xs">Pressured</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4 reveal" style="animation-delay:.08s">
+        <div class="flex items-center justify-between">
+          <h2 class="font-bold">World Rule Changes</h2>
+          <button class="text-xs rounded-md border px-2 py-1 hover:bg-slate-50">Add Entry</button>
+        </div>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li class="rounded-lg border p-2"><b>Orc</b> species availability changed to <b>Disabled</b>. <span class="text-slate-500">Impacts 0 characters</span></li>
+          <li class="rounded-lg border p-2"><b>Cleric spell table</b> updated levels 2-4. <span class="text-slate-500">Impacts 2 characters</span></li>
+          <li class="rounded-lg border p-2"><b>Potion of Focus</b> added to world items. <span class="text-slate-500">No conflicts</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="lg:col-span-4 space-y-4 reveal" style="animation-delay:.12s">
+      <div class="rounded-2xl bg-ink-900 text-slate-100 p-4 shadow-sm">
+        <h2 class="font-bold">Dice & Event Stream</h2>
+        <ul class="mt-3 space-y-2 text-sm max-h-[430px] overflow-auto pr-1">
+          <li class="rounded bg-white/10 p-2">GM Samantha rolled <code class="text-lime-300">d20</code> = <b>8</b></li>
+          <li class="rounded bg-white/10 p-2">Rob rolled <code class="text-lime-300">2d8+1</code> = <b>12</b></li>
+          <li class="rounded bg-white/10 p-2">System: Korin HP 12 -> 8 by GM</li>
+          <li class="rounded bg-white/10 p-2">System: XP update blocked (GM-only field)</li>
+          <li class="rounded bg-white/10 p-2">Nia rolled <code class="text-lime-300">d20+6</code> = <b>17</b></li>
+          <li class="rounded bg-white/10 p-2">GM spawned encounter: Ghoul Scout x2</li>
+          <li class="rounded bg-white/10 p-2">Tessa rolled <code class="text-lime-300">d20+5</code> = <b>21</b></li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
+        <h2 class="font-bold">GM Timeline</h2>
+        <div class="mt-3 space-y-2 text-sm text-slate-700">
+          <div class="border-l-2 border-forge-500 pl-2">00:12 - Shrine runes begin glowing.</div>
+          <div class="border-l-2 border-forge-500 pl-2">00:20 - Trigger scout ambush if torchlight seen.</div>
+          <div class="border-l-2 border-forge-500 pl-2">00:35 - Reveal hidden passage after Arcana 18+.</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="lg:col-span-3 space-y-4 reveal" style="animation-delay:.16s">
+      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
+        <h2 class="font-bold">Quick Actions</h2>
+        <div class="mt-3 grid gap-2 text-sm">
+          <button class="rounded-lg bg-forge-600 text-white py-2 font-semibold hover:bg-forge-700">Adjust HP</button>
+          <button class="rounded-lg border py-2 font-semibold hover:bg-slate-50">Approve Inventory Transfer</button>
+          <button class="rounded-lg border py-2 font-semibold hover:bg-slate-50">Push Story Note</button>
+          <button class="rounded-lg border py-2 font-semibold hover:bg-slate-50">Lock Player Field Editing</button>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
+        <h2 class="font-bold">Permission Matrix</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li class="rounded border p-2"><b>HP:</b> Player + GM</li>
+          <li class="rounded border p-2"><b>XP/Level:</b> GM only</li>
+          <li class="rounded border p-2"><b>Loadout:</b> Player + GM</li>
+          <li class="rounded border p-2"><b>World Rules:</b> GM/Co-GM</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elarion Player Screen - Tailwind Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ember: {50:'#fff8ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#f97316',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12'},
+            slatebrand: {900:'#0f172a',800:'#1e293b',700:'#334155'}
+          },
+          boxShadow: {
+            card: '0 10px 30px rgba(15, 23, 42, 0.10)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .fade-in { animation: fadeIn .4s ease-out both; }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:translateY(0);} }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-100 text-slate-800">
+  <header class="border-b border-amber-200/70 bg-white/90 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+      <div>
+        <p class="text-xs tracking-[0.2em] uppercase text-ember-700 font-semibold">Elarion</p>
+        <h1 class="text-lg font-bold">Player Session View</h1>
+      </div>
+      <div class="flex items-center gap-2 text-xs">
+        <span class="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-700">Live Sync: Connected</span>
+        <button class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 font-medium hover:bg-slate-50">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-6 grid gap-6 lg:grid-cols-12">
+    <section class="lg:col-span-8 space-y-6 fade-in">
+      <div class="rounded-2xl bg-white p-5 shadow-card border border-slate-100">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold">Korin Ashvale</h2>
+            <p class="text-sm text-slate-500">Level 4 Human Ranger • Campaign: Emberfall Ruins</p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=160&q=60" alt="Character portrait" class="h-16 w-16 rounded-xl object-cover ring-2 ring-amber-200" />
+        </div>
+        <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+          <div class="rounded-xl bg-amber-50 p-3"><p class="text-slate-500">STR</p><p class="text-xl font-bold">14</p></div>
+          <div class="rounded-xl bg-amber-50 p-3"><p class="text-slate-500">DEX</p><p class="text-xl font-bold">16</p></div>
+          <div class="rounded-xl bg-amber-50 p-3"><p class="text-slate-500">INT</p><p class="text-xl font-bold">12</p></div>
+          <div class="rounded-xl bg-amber-50 p-3"><p class="text-slate-500">WIS</p><p class="text-xl font-bold">15</p></div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 fade-in" style="animation-delay:.08s">
+        <div class="rounded-2xl bg-white border border-slate-100 p-4 shadow-card md:col-span-1">
+          <p class="text-xs uppercase tracking-wide text-slate-500">Mutable</p>
+          <h3 class="text-sm font-semibold text-slate-700">Hit Points</h3>
+          <div class="mt-2 flex items-end gap-2">
+            <span class="text-4xl font-black text-emerald-600">23</span>
+            <span class="text-sm text-slate-500">/ 31</span>
+          </div>
+          <div class="mt-3 flex gap-2">
+            <button class="rounded-lg bg-emerald-600 text-white px-3 py-1.5 text-sm font-semibold">-1</button>
+            <button class="rounded-lg bg-emerald-600 text-white px-3 py-1.5 text-sm font-semibold">+1</button>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-100 p-4 shadow-card">
+          <p class="text-xs uppercase tracking-wide text-slate-500">GM Managed</p>
+          <h3 class="text-sm font-semibold text-slate-700">Experience</h3>
+          <p class="mt-2 text-3xl font-black">3,400</p>
+          <p class="mt-1 text-xs text-slate-500">Read-only for players</p>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-100 p-4 shadow-card">
+          <p class="text-xs uppercase tracking-wide text-slate-500">GM Managed</p>
+          <h3 class="text-sm font-semibold text-slate-700">Level</h3>
+          <p class="mt-2 text-3xl font-black">4</p>
+          <p class="mt-1 text-xs text-slate-500">Updated on GM approval</p>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white p-5 shadow-card border border-slate-100 fade-in" style="animation-delay:.16s">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold">Inventory & Equipped</h3>
+          <button class="rounded-lg bg-ember-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-ember-700">Manage Loadout</button>
+        </div>
+        <div class="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
+          <div class="rounded-xl border border-slate-200 p-3">
+            <p class="font-semibold">Longbow</p>
+            <p class="text-slate-500">Equipped • 1d8 piercing</p>
+          </div>
+          <div class="rounded-xl border border-slate-200 p-3">
+            <p class="font-semibold">Leather Armor</p>
+            <p class="text-slate-500">Equipped • AC +1</p>
+          </div>
+          <div class="rounded-xl border border-slate-200 p-3">
+            <p class="font-semibold">Healing Potion x2</p>
+            <p class="text-slate-500">Consumable</p>
+          </div>
+          <div class="rounded-xl border border-slate-200 p-3">
+            <p class="font-semibold">Rations x5</p>
+            <p class="text-slate-500">Utility</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="lg:col-span-4 space-y-4 fade-in" style="animation-delay:.12s">
+      <div class="rounded-2xl bg-slatebrand-900 text-slate-100 p-4 shadow-card">
+        <h3 class="text-sm font-bold tracking-wide uppercase">Dice Log</h3>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li class="rounded-lg bg-white/10 p-2">You rolled <code class="text-amber-300">2d8+1</code> = <strong>12</strong></li>
+          <li class="rounded-lg bg-white/10 p-2">GM Samantha rolled <code class="text-amber-300">d20</code> = <strong>8</strong></li>
+          <li class="rounded-lg bg-white/10 p-2">Tessa rolled <code class="text-amber-300">d20+5</code> = <strong>21</strong></li>
+        </ul>
+      </div>
+      <div class="rounded-2xl bg-white p-4 shadow-card border border-slate-100">
+        <h3 class="text-sm font-bold tracking-wide uppercase text-slate-600">GM Story Notes</h3>
+        <ul class="mt-3 space-y-2 text-sm text-slate-600">
+          <li class="border-l-2 border-ember-500 pl-2">The shrine reacts to moonlight at midnight.</li>
+          <li class="border-l-2 border-ember-500 pl-2">Cult scouts are tracking torchlight in the valley.</li>
+          <li class="border-l-2 border-ember-500 pl-2">NPC Tovin knows hidden passphrase.</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>
