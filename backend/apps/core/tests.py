@@ -177,6 +177,41 @@ class TestLoginSecurity(TestCase):
         self.assertTrue(any("login_failed" in message for message in captured.output))
 
 
+class TestLogoutFlow(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="logout_user",
+            email="logout_user@example.com",
+            password="StrongPass123!",
+        )
+        self.client.force_login(self.user)
+
+    def test_logout_get_is_not_allowed(self):
+        response = self.client.get(reverse("logout"))
+        self.assertEqual(response.status_code, 405)
+
+    def test_logout_post_redirects_home_with_confirmation_message(self):
+        response = self.client.post(reverse("logout"), follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "You are now logged out.")
+
+    def test_logout_ends_session_and_blocks_protected_route(self):
+        self.client.post(reverse("logout"))
+
+        dashboard_response = self.client.get(reverse("dashboard"))
+        self.assertRedirects(
+            dashboard_response,
+            f'{reverse("login")}?next={reverse("dashboard")}',
+        )
+
+    def test_logout_event_is_logged(self):
+        with self.assertLogs("apps.core.auth", level="INFO") as captured:
+            self.client.post(reverse("logout"))
+
+        self.assertTrue(any("logout username=logout_user" in message for message in captured.output))
+
+
 class TestBootstrapDevDbCommand(SimpleTestCase):
     @patch("apps.core.management.commands.bootstrap_dev_db.call_command")
     def test_bootstrap_dev_db_creates_parent_dir_and_runs_migrate(self, mock_call_command):

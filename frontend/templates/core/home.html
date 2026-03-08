@@ -58,6 +58,14 @@
   </head>
   <body>
     <main class="shell">
+      {% if messages %}
+      <section class="hero" aria-label="System messages">
+        {% for message in messages %}
+        <p><strong>{{ message }}</strong></p>
+        {% endfor %}
+      </section>
+      {% endif %}
+
       <section class="hero">
         <h1>Elarion keeps players and GMs synchronized while staying focused on tabletop storytelling.</h1>
         <p>

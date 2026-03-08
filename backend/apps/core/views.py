@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.cache import cache
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from .forms import SignupForm
@@ -60,6 +61,15 @@ class RateLimitedLoginView(LoginView):
         from django.conf import settings
 
         return settings.LOGIN_RATE_LIMIT_WINDOW_SECONDS
+
+
+class RedirectingLogoutView(LogoutView):
+    next_page = "home"
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        messages.success(request, "You are now logged out.")
+        return response
 
 
 def signup(request):

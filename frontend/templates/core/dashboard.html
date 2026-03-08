@@ -6,6 +6,10 @@
     <title>Elarion | Dashboard</title>
   </head>
   <body>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">Log out</button>
+    </form>
     <h1>Your Elarion Dashboard</h1>
     <p>Welcome back, {{ request.user.username }}.</p>
     <p>This is the authenticated landing page placeholder for worlds, campaigns, and invites.</p>
