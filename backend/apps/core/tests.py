@@ -1,6 +1,12 @@
 from django.urls import reverse
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.test import SimpleTestCase, override_settings
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
+from io import StringIO
+from django.core.management import call_command
 
 
 class TestHomePage(TestCase):
@@ -66,3 +72,34 @@ class TestHomePage(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Your Elarion Dashboard")
+
+
+class TestBootstrapDevDbCommand(SimpleTestCase):
+    @patch("apps.core.management.commands.bootstrap_dev_db.call_command")
+    def test_bootstrap_dev_db_creates_parent_dir_and_runs_migrate(self, mock_call_command):
+        with TemporaryDirectory() as tempdir:
+            db_path = Path(tempdir) / "nested" / "elarion.sqlite3"
+
+            with override_settings(
+                DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": str(db_path)}}
+            ):
+                stdout = StringIO()
+                call_command("bootstrap_dev_db", stdout=stdout)
+                self.assertTrue(db_path.parent.exists())
+
+        mock_call_command.assert_called_once_with("migrate", interactive=False, verbosity=1)
+
+    @patch("apps.core.management.commands.bootstrap_dev_db.call_command")
+    def test_bootstrap_dev_db_is_idempotent(self, mock_call_command):
+        with TemporaryDirectory() as tempdir:
+            db_path = Path(tempdir) / "nested" / "elarion.sqlite3"
+            db_settings = {
+                "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": str(db_path)}
+            }
+
+            with override_settings(DATABASES=db_settings):
+                call_command("bootstrap_dev_db")
+                call_command("bootstrap_dev_db")
+                self.assertTrue(db_path.parent.exists())
+
+        self.assertEqual(mock_call_command.call_count, 2)
