@@ -27,6 +27,16 @@ The setup command creates the local SQLite database path and applies all Django 
 
 `make test` runs `check-migrations` first, then executes Django tests.
 
+## Authentication Security Defaults
+- Password hashing uses Django's built-in secure password hashing.
+- Session/CSRF cookies are HTTP-only and `SameSite=Lax` by default.
+- Login is rate-limited per username + IP (default: 5 failed attempts per 15 minutes).
+- Auth events are logged (`login_failed`, `login_success`, `logout`) via `apps.core.auth` logger.
+
+You can tune throttling with environment variables:
+- `LOGIN_RATE_LIMIT_ATTEMPTS`
+- `LOGIN_RATE_LIMIT_WINDOW_SECONDS`
+
 ## Development Seed Data
 - Seed deterministic dev users:
   `make seed-dev-data`

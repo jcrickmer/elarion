@@ -9,6 +9,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 from io import StringIO
 from django.core.management import call_command
+from django.core.cache import cache
 from apps.core.management.commands.seed_dev_data import SEED_USERS
 from apps.core.models import Campaign, CampaignCharacter, Character, RulesSystem, World
 
@@ -126,6 +127,54 @@ class TestSignupFlow(TestCase):
         response = self.client.get(reverse("signup"))
 
         self.assertRedirects(response, reverse("dashboard"))
+
+
+class TestLoginSecurity(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="secure_user",
+            email="secure_user@example.com",
+            password="StrongPass123!",
+        )
+        cache.clear()
+
+    def tearDown(self):
+        cache.clear()
+
+    @override_settings(LOGIN_RATE_LIMIT_ATTEMPTS=2, LOGIN_RATE_LIMIT_WINDOW_SECONDS=60)
+    def test_login_is_rate_limited_after_repeated_failures(self):
+        bad_payload = {"username": "secure_user", "password": "WrongPassword123!"}
+
+        self.client.post(reverse("login"), bad_payload)
+        self.client.post(reverse("login"), bad_payload)
+        blocked_response = self.client.post(reverse("login"), bad_payload)
+
+        self.assertEqual(blocked_response.status_code, 429)
+        self.assertContains(
+            blocked_response,
+            "Too many failed login attempts",
+            status_code=429,
+        )
+
+    @override_settings(LOGIN_RATE_LIMIT_ATTEMPTS=2, LOGIN_RATE_LIMIT_WINDOW_SECONDS=60)
+    def test_successful_login_resets_rate_limit_counter(self):
+        bad_payload = {"username": "secure_user", "password": "WrongPassword123!"}
+        good_payload = {"username": "secure_user", "password": "StrongPass123!"}
+
+        self.client.post(reverse("login"), bad_payload)
+        good_response = self.client.post(reverse("login"), good_payload)
+        next_bad_response = self.client.post(reverse("login"), bad_payload)
+
+        self.assertEqual(good_response.status_code, 302)
+        self.assertEqual(next_bad_response.status_code, 200)
+
+    def test_failed_login_is_logged(self):
+        bad_payload = {"username": "secure_user", "password": "WrongPassword123!"}
+
+        with self.assertLogs("apps.core.auth", level="WARNING") as captured:
+            self.client.post(reverse("login"), bad_payload)
+
+        self.assertTrue(any("login_failed" in message for message in captured.output))
 
 
 class TestBootstrapDevDbCommand(SimpleTestCase):
