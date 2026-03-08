@@ -8,6 +8,7 @@ from django.db.models.deletion import ProtectedError
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
+from unittest.mock import MagicMock
 from io import StringIO
 from django.core.management import call_command
 from django.core.management.base import CommandError
@@ -516,3 +517,24 @@ class TestWorldImportFromSrd(TestCase):
                 gm_username=self.gm.username,
                 include="spells",
             )
+
+
+class TestDatabaseObservability(TestCase):
+    def test_db_health_returns_ok_when_query_succeeds(self):
+        response = self.client.get(reverse("db_health"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, {"status": "ok", "db": "reachable"})
+
+    @patch("apps.core.views.connection.cursor")
+    def test_db_health_returns_503_when_query_fails(self, mock_cursor):
+        manager = MagicMock()
+        manager.__enter__.side_effect = Exception("db down")
+        mock_cursor.return_value = manager
+
+        response = self.client.get(reverse("db_health"))
+
+        self.assertEqual(response.status_code, 503)
+        body = response.json()
+        self.assertEqual(body["status"], "error")
+        self.assertEqual(body["db"], "unreachable")

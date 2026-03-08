@@ -3,6 +3,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.cache import cache
 from django.contrib import messages
+from django.db import connection
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from .forms import SignupForm
@@ -16,6 +18,16 @@ def home(request):
 
 def product_overview(request):
     return render(request, "core/product_overview.html")
+
+
+def db_health(request):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            cursor.fetchone()
+        return JsonResponse({"status": "ok", "db": "reachable"}, status=200)
+    except Exception as exc:
+        return JsonResponse({"status": "error", "db": "unreachable", "detail": str(exc)}, status=503)
 
 
 @login_required

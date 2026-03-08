@@ -70,3 +70,15 @@ Supported include groups:
 Notes:
 - Backups are written under `database/backups/` as `elarion_<timestamp>.sqlite3`.
 - Restore requires an explicit file path and overwrites the current development DB.
+
+## DB Observability (DEV-28)
+- DB health endpoint:
+  `GET /health/db/`
+- Enable SQL query logging in dev:
+  - `DB_QUERY_LOGGING_ENABLED=1`
+  - optional `DB_QUERY_LOGGING_LEVEL=DEBUG`
+- Slow query guidance threshold:
+  - `DB_SLOW_QUERY_THRESHOLD_MS` (default `200`)
+
+See details:
+- `docs/db_observability.md`

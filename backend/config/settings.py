@@ -157,6 +157,16 @@ LOGGING = {
     },
 }
 
+DB_QUERY_LOGGING_ENABLED = os.getenv("DB_QUERY_LOGGING_ENABLED", "0") == "1"
+DB_QUERY_LOGGING_LEVEL = os.getenv("DB_QUERY_LOGGING_LEVEL", "DEBUG")
+DB_SLOW_QUERY_THRESHOLD_MS = float(os.getenv("DB_SLOW_QUERY_THRESHOLD_MS", "200"))
+
+LOGGING["loggers"]["django.db.backends"] = {
+    "handlers": ["console"],
+    "level": DB_QUERY_LOGGING_LEVEL if DB_QUERY_LOGGING_ENABLED else "WARNING",
+    "propagate": False,
+}
+
 TEST_RUNNER = "apps.core.test_runner.GuardrailedDiscoverRunner"
 TEST_RUNTIME_TARGET_SECONDS = int(os.getenv("TEST_RUNTIME_TARGET_SECONDS", "45"))
 TEST_SLOW_TEST_THRESHOLD_SECONDS = float(os.getenv("TEST_SLOW_TEST_THRESHOLD_SECONDS", "0.5"))
