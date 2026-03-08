@@ -7,6 +7,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 from io import StringIO
 from django.core.management import call_command
+from apps.core.management.commands.seed_dev_data import SEED_USERS
 
 
 class TestHomePage(TestCase):
@@ -103,3 +104,31 @@ class TestBootstrapDevDbCommand(SimpleTestCase):
                 self.assertTrue(db_path.parent.exists())
 
         self.assertEqual(mock_call_command.call_count, 2)
+
+
+class TestSeedDevDataCommand(TestCase):
+    def test_seed_dev_data_is_idempotent(self):
+        call_command("seed_dev_data")
+        call_command("seed_dev_data")
+
+        user_model = get_user_model()
+        self.assertEqual(
+            user_model.objects.filter(username__in=[entry["username"] for entry in SEED_USERS]).count(),
+            len(SEED_USERS),
+        )
+
+    def test_seed_dev_data_reset_recreates_seed_records(self):
+        call_command("seed_dev_data")
+        user_model = get_user_model()
+        gm = user_model.objects.get(username="gm_samantha")
+        gm.email = "old@example.com"
+        gm.save(update_fields=["email"])
+
+        call_command("seed_dev_data", reset=True)
+
+        gm = user_model.objects.get(username="gm_samantha")
+        self.assertEqual(gm.email, "gm_samantha@example.com")
+        self.assertEqual(
+            user_model.objects.filter(username__in=[entry["username"] for entry in SEED_USERS]).count(),
+            len(SEED_USERS),
+        )

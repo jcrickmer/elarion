@@ -26,3 +26,14 @@ The setup command creates the local SQLite database path and applies all Django 
   `make test`
 
 `make test` runs `check-migrations` first, then executes Django tests.
+
+## Development Seed Data
+- Seed deterministic dev users:
+  `make seed-dev-data`
+- Reset and reseed:
+  `make seed-dev-data-reset`
+
+The seed command is idempotent and currently creates representative GM/player accounts for local testing:
+- `gm_samantha`
+- `player_rob`
+- `player_tessa`
