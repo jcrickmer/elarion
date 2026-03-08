@@ -47,3 +47,16 @@ The seed command is idempotent and currently creates representative GM/player ac
 - `gm_samantha`
 - `player_rob`
 - `player_tessa`
+
+## Focused SRD Baseline and World Import (DEV-36)
+- Seed focused SRD baseline dataset:
+  `make seed-srd-baseline`
+- Create a world from selected SRD groups:
+  `./.venv/bin/python backend/manage.py create_world_from_srd --world-name \"Sable Reach\" --world-slug sable-reach --gm-username <username> --include species,classes,spells,items`
+
+Supported include groups:
+- `species`
+- `classes`
+- `spells` (requires `classes`)
+- `items`
+- `backgrounds`

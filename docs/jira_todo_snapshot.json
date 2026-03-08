@@ -1,0 +1,511 @@
+{
+  "count": 44,
+  "rows": [
+    {
+      "key": "DEV-3",
+      "type": "Task",
+      "summary": "Execute proof of concept validation for basic technical requirements",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-4",
+      "type": "Task",
+      "summary": "Create functional prototype demonstrating initial Elarion features",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-5",
+      "type": "Task",
+      "summary": "Conduct internal review of MVP against stated user stories",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-7",
+      "type": "Epic",
+      "summary": "MVP Foundation: Anonymous Home Experience",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-8",
+      "type": "Epic",
+      "summary": "MVP Foundation: Local Authentication",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-9",
+      "type": "Epic",
+      "summary": "MVP Foundation: Authenticated Landing and Access Control",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-15",
+      "type": "Task",
+      "summary": "US-B3: Local auth is structured for future social sign-on",
+      "parent": "DEV-8",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-16",
+      "type": "Task",
+      "summary": "US-C1: Authenticated user sees worlds/campaigns and role context",
+      "parent": "DEV-9",
+      "blocked_by": [
+        "DEV-49"
+      ],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-17",
+      "type": "Task",
+      "summary": "US-C2: Authenticated user can process campaign invitations",
+      "parent": "DEV-9",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-18",
+      "type": "Task",
+      "summary": "US-C3: Role-aware controls on authenticated landing",
+      "parent": "DEV-9",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-19",
+      "type": "Task",
+      "summary": "US-N1: Home, login, and landing are responsive for table play",
+      "parent": "DEV-9",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-20",
+      "type": "Task",
+      "summary": "US-N2: Authentication events are audit-friendly",
+      "parent": "DEV-8",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-21",
+      "type": "Epic",
+      "summary": "MVP Foundation: Development Database Platform",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-26",
+      "type": "Task",
+      "summary": "DB-NFR5: SQLite backup and restore scripts",
+      "parent": "DEV-21",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-27",
+      "type": "Task",
+      "summary": "DB-NFR6: Test DB isolation and performance guardrails",
+      "parent": "DEV-21",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-28",
+      "type": "Task",
+      "summary": "DB-NFR7: Development DB observability baseline",
+      "parent": "DEV-21",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-29",
+      "type": "Task",
+      "summary": "DB-NFR8: Local data security baseline",
+      "parent": "DEV-21",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-30",
+      "type": "Epic",
+      "summary": "CHR-EPIC-1: World Rules Catalog Management",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-31",
+      "type": "Epic",
+      "summary": "CHR-EPIC-2: Character Creation Constrained by World Rules",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-32",
+      "type": "Epic",
+      "summary": "CHR-EPIC-3: Inventory and Equipment Overrides",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-33",
+      "type": "Epic",
+      "summary": "CHR-EPIC-4: Character Revalidation and Change Propagation",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-34",
+      "type": "Epic",
+      "summary": "CHR-EPIC-5: Full Custom Spell Progressions",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-35",
+      "type": "Epic",
+      "summary": "CHR-EPIC-6: Shared World Rules Change Log",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-36",
+      "type": "Task",
+      "summary": "CHR-US-01: Create world from selectable SRD baseline",
+      "parent": "DEV-30",
+      "blocked_by": [],
+      "blocks": [
+        "DEV-52"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-37",
+      "type": "Task",
+      "summary": "CHR-US-02: World rules catalog CRUD for top entities",
+      "parent": "DEV-30",
+      "blocked_by": [],
+      "blocks": [
+        "DEV-55"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-38",
+      "type": "Task",
+      "summary": "CHR-US-03: Character creation constrained by world catalogs",
+      "parent": "DEV-31",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-39",
+      "type": "Task",
+      "summary": "CHR-US-04: Enforce mutable vs non-mutable character fields",
+      "parent": "DEV-31",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-40",
+      "type": "Task",
+      "summary": "CHR-US-05: World equipment overrides in character inventory",
+      "parent": "DEV-32",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-41",
+      "type": "Task",
+      "summary": "CHR-US-06: Immediate character revalidation on world rules edits",
+      "parent": "DEV-33",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-42",
+      "type": "Task",
+      "summary": "CHR-US-07: Full custom spell progression tables",
+      "parent": "DEV-34",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-43",
+      "type": "Task",
+      "summary": "CHR-US-08: World rules change log visible to all",
+      "parent": "DEV-35",
+      "blocked_by": [],
+      "blocks": [
+        "DEV-56"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-44",
+      "type": "Task",
+      "summary": "CHR-US-09: Link character background entries to wiki pages",
+      "parent": "DEV-35",
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-45",
+      "type": "Task",
+      "summary": "CHR-US-10: Co-GM invitation and world admin roles",
+      "parent": "DEV-30",
+      "blocked_by": [],
+      "blocks": [
+        "DEV-57"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-46",
+      "type": "Epic",
+      "summary": "UI-EPIC-1: MVP Auth + Dashboard UX",
+      "parent": null,
+      "blocked_by": [],
+      "blocks": [],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-48",
+      "type": "Task",
+      "summary": "UI-US-02: Login UX polish and redirect behavior",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-47"
+      ],
+      "blocks": [
+        "DEV-49"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-49",
+      "type": "Task",
+      "summary": "UI-US-03: Logged-in dashboard shell with navigation",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-48"
+      ],
+      "blocks": [
+        "DEV-50",
+        "DEV-16"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-50",
+      "type": "Task",
+      "summary": "UI-US-04: Dashboard worlds panel (empty/list states)",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-49"
+      ],
+      "blocks": [
+        "DEV-51"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-51",
+      "type": "Task",
+      "summary": "UI-US-05: Create World wizard step 1 (identity)",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-50"
+      ],
+      "blocks": [
+        "DEV-52"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-52",
+      "type": "Task",
+      "summary": "UI-US-06: Create World wizard step 2 (SRD baseline selection)",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-51",
+        "DEV-36"
+      ],
+      "blocks": [
+        "DEV-53"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-53",
+      "type": "Task",
+      "summary": "UI-US-07: World detail page shell with tabs",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-52"
+      ],
+      "blocks": [
+        "DEV-54"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-54",
+      "type": "Task",
+      "summary": "UI-US-08: Catalog tab list UI for core entities",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-53"
+      ],
+      "blocks": [
+        "DEV-55"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-55",
+      "type": "Task",
+      "summary": "UI-US-09: Catalog CRUD UI for Items/Weapons",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-54",
+        "DEV-37"
+      ],
+      "blocks": [
+        "DEV-56"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-56",
+      "type": "Task",
+      "summary": "UI-US-10: World change-log feed UI",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-55",
+        "DEV-43"
+      ],
+      "blocks": [
+        "DEV-57"
+      ],
+      "priority": "Medium"
+    },
+    {
+      "key": "DEV-57",
+      "type": "Task",
+      "summary": "UI-US-11: Route guards and role visibility",
+      "parent": "DEV-46",
+      "blocked_by": [
+        "DEV-56",
+        "DEV-45"
+      ],
+      "blocks": [],
+      "priority": "Medium"
+    }
+  ],
+  "categories": {
+    "foundation": [
+      "DEV-3",
+      "DEV-4",
+      "DEV-5"
+    ],
+    "auth_ui": [
+      "DEV-15",
+      "DEV-16",
+      "DEV-17",
+      "DEV-18",
+      "DEV-19",
+      "DEV-20",
+      "DEV-46",
+      "DEV-48",
+      "DEV-49",
+      "DEV-50",
+      "DEV-51",
+      "DEV-52",
+      "DEV-53",
+      "DEV-54",
+      "DEV-55",
+      "DEV-56",
+      "DEV-57"
+    ],
+    "db": [
+      "DEV-26",
+      "DEV-27",
+      "DEV-28",
+      "DEV-29"
+    ],
+    "character": [
+      "DEV-30",
+      "DEV-31",
+      "DEV-32",
+      "DEV-33",
+      "DEV-34",
+      "DEV-35",
+      "DEV-36",
+      "DEV-37",
+      "DEV-38",
+      "DEV-39",
+      "DEV-40",
+      "DEV-41",
+      "DEV-42",
+      "DEV-43",
+      "DEV-44",
+      "DEV-45"
+    ],
+    "ui_world": [],
+    "other": [
+      "DEV-7",
+      "DEV-8",
+      "DEV-9",
+      "DEV-21"
+    ]
+  }
+}

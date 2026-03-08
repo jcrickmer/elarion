@@ -1,5 +1,6 @@
 from django.urls import reverse
 from django.test import TestCase
+from django.test import Client
 from django.contrib.auth import get_user_model
 from django.test import SimpleTestCase, override_settings
 from django.db import IntegrityError, transaction
@@ -11,7 +12,21 @@ from io import StringIO
 from django.core.management import call_command
 from django.core.cache import cache
 from apps.core.management.commands.seed_dev_data import SEED_USERS
-from apps.core.models import Campaign, CampaignCharacter, Character, RulesSystem, World
+from apps.core.models import (
+    BaselineClass,
+    BaselineItem,
+    BaselineSpecies,
+    Campaign,
+    CampaignCharacter,
+    Character,
+    RulesSystem,
+    World,
+    WorldClass,
+    WorldItem,
+    WorldSpecies,
+    WorldSpell,
+    WorldClassSpellProgression,
+)
 
 
 class TestHomePage(TestCase):
@@ -127,6 +142,60 @@ class TestSignupFlow(TestCase):
         response = self.client.get(reverse("signup"))
 
         self.assertRedirects(response, reverse("dashboard"))
+
+
+class TestLoginFlow(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="login_user",
+            email="login_user@example.com",
+            password="StrongPass123!",
+        )
+
+    def test_valid_login_creates_session_and_redirects(self):
+        response = self.client.post(
+            reverse("login"),
+            {
+                "username": "login_user",
+                "password": "StrongPass123!",
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse("dashboard"))
+
+        dashboard = self.client.get(reverse("dashboard"))
+        self.assertEqual(dashboard.status_code, 200)
+
+    def test_invalid_login_shows_non_revealing_error(self):
+        response = self.client.post(
+            reverse("login"),
+            {
+                "username": "login_user",
+                "password": "WrongPassword123!",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Please enter a correct username and password.")
+
+        dashboard = self.client.get(reverse("dashboard"))
+        self.assertRedirects(dashboard, f'{reverse("login")}?next={reverse("dashboard")}')
+
+    def test_login_post_requires_csrf_token(self):
+        csrf_client = Client(enforce_csrf_checks=True)
+
+        login_page = csrf_client.get(reverse("login"))
+        self.assertContains(login_page, "csrfmiddlewaretoken")
+
+        blocked = csrf_client.post(
+            reverse("login"),
+            {
+                "username": "login_user",
+                "password": "StrongPass123!",
+            },
+        )
+        self.assertEqual(blocked.status_code, 403)
 
 
 class TestLoginSecurity(TestCase):
@@ -332,3 +401,67 @@ class TestCoreModelConstraints(TestCase):
     def test_rules_system_delete_is_protected_when_world_exists(self):
         with self.assertRaises(ProtectedError):
             self.rules.delete()
+
+
+class TestWorldImportFromSrd(TestCase):
+    def setUp(self):
+        self.gm = get_user_model().objects.create_user(
+            username="world_gm",
+            email="world_gm@example.com",
+            password="StrongPass123!",
+        )
+        call_command("seed_srd_baseline")
+
+    def test_seed_srd_baseline_contains_requested_focus_entities(self):
+        self.assertEqual(
+            set(BaselineSpecies.objects.values_list("name", flat=True)),
+            {"Human", "Elf", "Dwarf"},
+        )
+        self.assertEqual(
+            set(BaselineClass.objects.values_list("name", flat=True)),
+            {"Fighter", "Cleric", "Magic User", "Thief"},
+        )
+        self.assertTrue(BaselineItem.objects.filter(name="Longsword").exists())
+        self.assertTrue(BaselineItem.objects.filter(name="Thieves' Tools").exists())
+
+    def test_create_world_imports_only_selected_groups(self):
+        call_command(
+            "create_world_from_srd",
+            world_name="Focused World",
+            world_slug="focused-world",
+            gm_username=self.gm.username,
+            include="species,classes",
+        )
+        world = World.objects.get(slug="focused-world")
+
+        self.assertEqual(WorldSpecies.objects.filter(world=world).count(), 3)
+        self.assertEqual(WorldClass.objects.filter(world=world).count(), 4)
+        self.assertEqual(WorldSpell.objects.filter(world=world).count(), 0)
+        self.assertEqual(WorldItem.objects.filter(world=world).count(), 0)
+
+    def test_create_world_with_spells_copies_progression_table(self):
+        call_command(
+            "create_world_from_srd",
+            world_name="Spell World",
+            world_slug="spell-world",
+            gm_username=self.gm.username,
+            include="classes,spells",
+        )
+        world = World.objects.get(slug="spell-world")
+
+        self.assertGreater(WorldSpell.objects.filter(world=world).count(), 0)
+        self.assertGreater(WorldClassSpellProgression.objects.filter(world=world).count(), 0)
+        self.assertEqual(WorldSpecies.objects.filter(world=world).count(), 0)
+
+    def test_spells_without_classes_is_rejected(self):
+        with self.assertRaisesMessage(
+            ValueError,
+            "Including spells requires including classes",
+        ):
+            call_command(
+                "create_world_from_srd",
+                world_name="Invalid World",
+                world_slug="invalid-world",
+                gm_username=self.gm.username,
+                include="spells",
+            )
