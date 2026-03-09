@@ -6,40 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Elarion | Create account</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    <style>
-      body { font-family: "Segoe UI", Tahoma, sans-serif; margin: 2rem auto; max-width: 560px; padding: 0 1rem; }
-      form { border: 1px solid #d1d5db; border-radius: 10px; padding: 1rem; }
-      .field { margin-bottom: 0.8rem; }
-      label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
-      input { width: 100%; padding: 0.5rem; border: 1px solid #9ca3af; border-radius: 6px; }
-      .errors { background: #fee2e2; border: 1px solid #ef4444; border-radius: 8px; padding: 0.7rem; margin-bottom: 0.8rem; }
-      button { background: #1d4ed8; color: #fff; border: 0; border-radius: 6px; padding: 0.55rem 0.9rem; cursor: pointer; }
-      a { color: #1d4ed8; }
-    </style>
   </head>
-  <body>
-    <h1>Create account</h1>
+  <body class="ui-page">
+    <main class="ui-shell max-w-2xl">
+      <section class="ui-form">
+        <h1 class="ui-title">Create account</h1>
+        <p class="ui-subtitle mt-1">Get started with your own worlds and campaign collaboration.</p>
 
-    <form method="post">
-      {% csrf_token %}
+        <form method="post" class="mt-4">
+          {% csrf_token %}
 
-      {% if form.non_field_errors %}
-      <div class="errors">{{ form.non_field_errors }}</div>
-      {% endif %}
+          {% if form.non_field_errors %}
+          <div class="ui-alert ui-alert-error mb-4">{{ form.non_field_errors }}</div>
+          {% endif %}
 
-      {% for field in form %}
-      <div class="field">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-        {% if field.errors %}
-        <div class="errors">{{ field.errors }}</div>
-        {% endif %}
-      </div>
-      {% endfor %}
+          {% for field in form %}
+          <div class="ui-form-row">
+            <label class="ui-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+            <div class="ui-form-help">{{ field.help_text|safe }}</div>
+            {% endif %}
+            {% if field.errors %}
+            <div class="ui-alert ui-alert-error mt-2">{{ field.errors }}</div>
+            {% endif %}
+          </div>
+          {% endfor %}
 
-      <button type="submit">Create account</button>
-    </form>
+          <button type="submit" class="ui-btn-primary w-full">Create account</button>
+        </form>
 
-    <p>Already have an account? <a href="{% url 'login' %}">Log in</a>.</p>
+        <p class="ui-form-help mt-4">
+          Already have an account?
+          <a class="ui-nav-link" href="{% url 'login' %}">Log in</a>.
+        </p>
+      </section>
+    </main>
   </body>
 </html>

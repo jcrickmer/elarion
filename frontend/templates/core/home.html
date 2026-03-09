@@ -6,99 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Elarion | Tabletop Campaign Collaboration</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    <style>
-      :root {
-        --bg: #111827;
-        --panel: #f9fafb;
-        --accent: #1d4ed8;
-        --text: #1f2937;
-        --muted: #4b5563;
-      }
-      body {
-        margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: radial-gradient(circle at top right, #1f3b7d, var(--bg));
-        color: var(--text);
-      }
-      .shell {
-        max-width: 980px;
-        margin: 2rem auto;
-        background: var(--panel);
-        border-radius: 14px;
-        padding: 1.5rem;
-      }
-      h1 { margin-top: 0; font-size: 2rem; }
-      p { color: var(--muted); line-height: 1.5; }
-      .hero { margin-bottom: 1.25rem; }
-      .actions {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-        margin-top: 1rem;
-      }
-      .actions a {
-        text-decoration: none;
-        font-weight: 600;
-        padding: 0.6rem 1rem;
-        border-radius: 8px;
-      }
-      .primary { background: var(--accent); color: #fff; }
-      .secondary { background: #e5e7eb; color: #111827; }
-      .benefits {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      }
-      .benefit {
-        border: 1px solid #d1d5db;
-        border-radius: 10px;
-        padding: 0.9rem;
-        background: #fff;
-      }
-      .benefit h2 { margin: 0 0 0.4rem; font-size: 1.1rem; }
-    </style>
   </head>
-  <body>
-    <main class="shell">
+  <body class="ui-page">
+    <header class="ui-nav">
+      <div class="ui-shell flex items-center justify-between py-3">
+        <p class="text-sm font-bold tracking-wide text-brand-accent">ELARION</p>
+        <div class="flex items-center gap-2">
+          <a class="ui-nav-link" href="{% url 'product_overview' %}">Product Overview</a>
+          <a class="ui-btn-secondary" href="{% url 'login' %}">Log in</a>
+          <a class="ui-btn-primary" href="{% url 'signup' %}">Create account</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="ui-shell space-y-6">
       {% if messages %}
-      <section class="hero" aria-label="System messages">
+      <section aria-label="System messages" class="space-y-2">
         {% for message in messages %}
-        <p><strong>{{ message }}</strong></p>
+        <p class="ui-alert ui-alert-success"><strong>{{ message }}</strong></p>
         {% endfor %}
       </section>
       {% endif %}
 
-      <section class="hero">
-        <h1>Elarion keeps players and GMs synchronized while staying focused on tabletop storytelling.</h1>
-        <p>
+      <section class="ui-card p-6">
+        <h1 class="ui-title">Elarion keeps players and GMs synchronized while staying focused on tabletop storytelling.</h1>
+        <p class="ui-text-muted mt-3">
           Track character state, inventory, and campaign context in one collaboration space without replacing
           the in-person table experience.
         </p>
-        <div class="actions">
-          <a class="primary" href="{% url 'login' %}">Log in</a>
-          <a class="secondary" href="{% url 'signup' %}">Create account</a>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <a class="ui-btn-primary" href="{% url 'login' %}">Log in</a>
+          <a class="ui-btn-secondary" href="{% url 'signup' %}">Create account</a>
         </div>
       </section>
 
-      <section class="benefits" aria-label="Benefits by role">
-        <article class="benefit">
-          <h2>For Players</h2>
-          <p>Keep your character sheet current, update mutable stats, and manage inventory during sessions.</p>
+      <section class="ui-grid-2" aria-label="Benefits by role">
+        <article class="ui-card p-5">
+          <h2 class="ui-section-title">For Players</h2>
+          <p class="ui-text-muted mt-2">Keep your character sheet current, update mutable stats, and manage inventory during sessions.</p>
         </article>
-        <article class="benefit">
-          <h2>For Game Masters</h2>
-          <p>See party state at a glance, manage world-specific data, and preserve story continuity over time.</p>
+        <article class="ui-card p-5">
+          <h2 class="ui-section-title">For Game Masters</h2>
+          <p class="ui-text-muted mt-2">See party state at a glance, manage world-specific data, and preserve story continuity over time.</p>
         </article>
       </section>
 
-      <section class="hero" aria-label="Product scope">
-        <h2>Elarion Focus</h2>
-        <p>
+      <section class="ui-card p-5" aria-label="Product scope">
+        <h2 class="ui-section-title">Elarion Focus</h2>
+        <p class="ui-text-muted mt-2">
           Elarion is built for campaign collaboration and shared table state. It is not a full virtual tabletop
           battlemap replacement in MVP.
         </p>
-        <p>
-          <a href="{% url 'product_overview' %}">Read the product overview</a>
+        <p class="mt-3">
+          <a class="ui-nav-link" href="{% url 'product_overview' %}">Read the product overview</a>
         </p>
       </section>
     </main>

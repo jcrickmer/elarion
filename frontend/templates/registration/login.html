@@ -7,15 +7,47 @@
     <title>Elarion | Log in</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   </head>
-  <body>
-    <h1>Log in</h1>
-    {% if request.GET.created == "1" %}
-    <p>Your account was created. You can log in now.</p>
-    {% endif %}
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Log in</button>
-    </form>
+  <body class="ui-page">
+    <main class="ui-shell max-w-2xl">
+      <section class="ui-form">
+        <h1 class="ui-title">Log in</h1>
+        <p class="ui-subtitle mt-1">Access your worlds, campaigns, and character collaboration space.</p>
+
+        {% if request.GET.created == "1" %}
+        <p class="ui-alert ui-alert-success mt-4">Your account was created. You can log in now.</p>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+        <div class="ui-alert ui-alert-error mt-4">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <form method="post" class="mt-4">
+          {% csrf_token %}
+
+          <div class="ui-form-row">
+            <label class="ui-form-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+            <div class="ui-alert ui-alert-error mt-2">{{ form.username.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="ui-form-row">
+            <label class="ui-form-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {{ form.password }}
+            {% if form.password.errors %}
+            <div class="ui-alert ui-alert-error mt-2">{{ form.password.errors }}</div>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="ui-btn-primary w-full">Log in</button>
+        </form>
+
+        <p class="ui-form-help mt-4">
+          Need an account?
+          <a class="ui-nav-link" href="{% url 'signup' %}">Create account</a>
+        </p>
+      </section>
+    </main>
   </body>
 </html>

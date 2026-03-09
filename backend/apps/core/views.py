@@ -1,13 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.cache import cache
 from django.contrib import messages
 from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .forms import SignupForm
+from .forms import SignupForm, TailwindAuthenticationForm
 
 
 def home(request):
@@ -37,7 +36,7 @@ def dashboard(request):
 
 class RateLimitedLoginView(LoginView):
     template_name = "registration/login.html"
-    authentication_form = AuthenticationForm
+    authentication_form = TailwindAuthenticationForm
 
     def _attempt_key(self, username):
         ip = self.request.META.get("REMOTE_ADDR", "unknown")

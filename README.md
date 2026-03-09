@@ -43,8 +43,12 @@ Tailwind source and output paths:
 The source includes base theme tokens and reusable UI primitives:
 - `.ui-shell`
 - `.ui-card`
+- `.ui-page` / `.ui-nav` / `.ui-nav-link`
+- `.ui-title` / `.ui-subtitle` / `.ui-section-title` / `.ui-text-muted`
 - `.ui-btn-primary`
 - `.ui-btn-secondary`
+- `.ui-badge` / `.ui-badge-success`
+- `.ui-form` / `.ui-form-row` / `.ui-form-label` / `.ui-form-help`
 - `.ui-input`
 - `.ui-alert` / `.ui-alert-error` / `.ui-alert-success`
 

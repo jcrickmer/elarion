@@ -121,6 +121,28 @@ class TestTailwindFoundation(TestCase):
         response = self.client.get(reverse("dashboard"))
         self.assertContains(response, '/static/css/main.css')
 
+    def test_tailwind_primitives_are_used_by_key_templates(self):
+        home = self.client.get(reverse("home"))
+        login = self.client.get(reverse("login"))
+        signup = self.client.get(reverse("signup"))
+
+        user = get_user_model().objects.create_user(
+            username="tailwind_components_user",
+            email="tailwind_components_user@example.com",
+            password="StrongPass123!",
+        )
+        self.client.force_login(user)
+        dashboard = self.client.get(reverse("dashboard"))
+
+        self.assertContains(home, "ui-card")
+        self.assertContains(home, "ui-btn-primary")
+        self.assertContains(login, "ui-form")
+        self.assertContains(login, "ui-input")
+        self.assertContains(signup, "ui-form")
+        self.assertContains(signup, "ui-input")
+        self.assertContains(dashboard, "ui-card")
+        self.assertContains(dashboard, "ui-badge")
+
 
 class TestSignupFlow(TestCase):
     def test_signup_page_loads(self):

@@ -7,13 +7,40 @@
     <title>Elarion | Dashboard</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   </head>
-  <body>
-    <form method="post" action="{% url 'logout' %}">
-      {% csrf_token %}
-      <button type="submit">Log out</button>
-    </form>
-    <h1>Your Elarion Dashboard</h1>
-    <p>Welcome back, {{ request.user.username }}.</p>
-    <p>This is the authenticated landing page placeholder for worlds, campaigns, and invites.</p>
+  <body class="ui-page">
+    <header class="ui-nav">
+      <div class="ui-shell flex items-center justify-between py-3">
+        <div>
+          <p class="text-sm font-bold tracking-wide text-brand-accent">ELARION</p>
+          <p class="ui-subtitle">Authenticated Dashboard</p>
+        </div>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="ui-btn-secondary">Log out</button>
+        </form>
+      </div>
+    </header>
+
+    <main class="ui-shell space-y-4">
+      <section class="ui-card p-6">
+        <div class="flex items-center justify-between gap-2">
+          <h1 class="ui-title">Your Elarion Dashboard</h1>
+          <span class="ui-badge ui-badge-success">Logged in</span>
+        </div>
+        <p class="ui-text-muted mt-2">Welcome back, {{ request.user.username }}.</p>
+        <p class="ui-text-muted mt-1">This is the authenticated landing page placeholder for worlds, campaigns, and invites.</p>
+      </section>
+
+      <section class="ui-grid-2">
+        <article class="ui-card p-5">
+          <h2 class="ui-section-title">Worlds</h2>
+          <p class="ui-text-muted mt-2">Create and manage world rules catalogs for your table.</p>
+        </article>
+        <article class="ui-card p-5">
+          <h2 class="ui-section-title">Campaigns</h2>
+          <p class="ui-text-muted mt-2">Track active campaigns, party context, and session readiness.</p>
+        </article>
+      </section>
+    </main>
   </body>
 </html>
