@@ -3,119 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elarion GM Screen - Tailwind Mockup</title>
+  <title>Elarion GM Screen - Tailwind Mockup (Candlelit)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            forge: {50:'#f7fee7',100:'#ecfccb',200:'#d9f99d',300:'#bef264',400:'#a3e635',500:'#84cc16',600:'#65a30d',700:'#4d7c0f',800:'#3f6212',900:'#365314'},
-            ink: {900:'#0b1120',800:'#111827',700:'#1f2937'}
+            candle: {
+              50: '#fdf7ee',
+              100: '#f8ecd7',
+              200: '#efd8b5',
+              300: '#dfb98a',
+              400: '#c79058',
+              500: '#ae6838',
+              600: '#8d4f2d',
+              700: '#6f3d25',
+              800: '#4c2d1f',
+              900: '#2f1d14'
+            },
+            ink: {
+              900: '#19120f',
+              800: '#2a1f1a',
+              700: '#3a2a24'
+            },
+            arcane: {
+              500: '#2f5d85',
+              700: '#1f3f5e'
+            }
+          },
+          fontFamily: {
+            heading: ['Cinzel', 'serif'],
+            body: ['Nunito Sans', 'sans-serif']
+          },
+          boxShadow: {
+            folio: '0 14px 34px rgba(45, 28, 20, 0.18)'
           }
         }
       }
     }
   </script>
   <style>
-    .reveal { animation: reveal .35s ease-out both; }
-    @keyframes reveal { from { opacity:0; transform: translateY(8px);} to {opacity:1; transform:translateY(0);} }
+    .panel-line {
+      border: 2px solid #6f3d25;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.25);
+    }
+    .grain::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,.16) 0.8px, transparent 0.8px);
+      background-size: 3px 3px;
+      opacity: .22;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    .reveal { animation: reveal .36s ease-out both; }
+    @keyframes reveal { from { opacity:0; transform: translateY(8px);} to { opacity:1; transform: translateY(0);} }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-lime-50 text-slate-800">
-  <header class="border-b border-slate-200 bg-white/95 backdrop-blur sticky top-0 z-10">
+<body class="min-h-screen bg-[radial-gradient(1200px_600px_at_15%_-20%,#f8ecd7_0%,transparent_65%),radial-gradient(900px_500px_at_85%_-10%,#efd8b5_0%,transparent_65%),linear-gradient(180deg,#fdf7ee_0%,#f4e4ca_45%,#eacda2_100%)] font-body text-ink-800">
+  <header class="sticky top-0 z-10 border-b-2 border-candle-700/70 bg-candle-50/90 backdrop-blur">
     <div class="mx-auto max-w-[1500px] px-4 py-3 flex items-center justify-between gap-4">
       <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-forge-700 font-semibold">Elarion GM Console</p>
-        <h1 class="text-xl font-black">Emberfall Ruins - Live Session Control</h1>
+        <p class="font-heading text-xs uppercase tracking-[0.22em] text-candle-700">Elarion Chronicle</p>
+        <h1 class="font-heading text-xl text-ink-900">GM Session Command Folio</h1>
       </div>
       <div class="flex items-center gap-2 text-xs">
-        <span class="rounded-full bg-emerald-100 text-emerald-700 px-3 py-1 font-semibold">Session Live</span>
-        <span class="rounded-full bg-slate-100 text-slate-700 px-3 py-1 font-semibold">Players Online 4/5</span>
-        <button class="rounded-lg bg-forge-600 text-white px-3 py-1.5 font-semibold hover:bg-forge-700">Invite Player</button>
+        <span class="rounded-full border border-emerald-700/40 bg-emerald-100 px-3 py-1 font-bold text-emerald-800">Session Live</span>
+        <span class="rounded-full border border-candle-700/50 bg-candle-100 px-3 py-1 font-bold text-candle-900">Players Online 4/5</span>
+        <button class="rounded-lg border-2 border-arcane-700 bg-arcane-500 px-3 py-1.5 font-bold text-white hover:bg-arcane-700">Invite Player</button>
       </div>
     </div>
   </header>
 
   <main class="mx-auto max-w-[1500px] p-4 grid gap-4 lg:grid-cols-12">
     <section class="lg:col-span-5 space-y-4 reveal">
-      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
-        <div class="flex items-center justify-between">
-          <h2 class="font-bold">Player State Matrix</h2>
-          <button class="text-xs rounded-md border px-2 py-1 hover:bg-slate-50">Bulk Update</button>
+      <article class="relative overflow-hidden rounded-2xl bg-candle-50 panel-line p-4 shadow-folio grain">
+        <div class="absolute -right-5 -top-5 h-28 w-28 rounded-full border-2 border-candle-700/35"></div>
+        <div class="relative flex items-center justify-between">
+          <h2 class="font-heading text-lg text-ink-900">Player State Matrix</h2>
+          <button class="rounded-md border-2 border-candle-700 bg-candle-100 px-2 py-1 text-xs font-bold text-candle-900 hover:bg-candle-200">Bulk Update</button>
         </div>
-        <div class="mt-3 overflow-auto">
+        <div class="relative mt-3 overflow-auto">
           <table class="w-full text-sm">
-            <thead class="text-xs text-slate-500 uppercase">
-              <tr><th class="text-left py-2">Player</th><th class="text-left">Character</th><th class="text-left">HP</th><th class="text-left">AC</th><th class="text-left">Status</th></tr>
+            <thead class="text-[11px] uppercase tracking-wider text-candle-800">
+              <tr>
+                <th class="text-left py-2">Player</th>
+                <th class="text-left">Character</th>
+                <th class="text-left">HP</th>
+                <th class="text-left">XP</th>
+                <th class="text-left">AC</th>
+                <th class="text-left">Status</th>
+              </tr>
             </thead>
-            <tbody class="divide-y">
-              <tr><td class="py-2 font-semibold">Rob</td><td>Korin</td><td><span class="font-bold text-amber-600">8/31</span></td><td>15</td><td><span class="px-2 py-0.5 rounded bg-rose-100 text-rose-700 text-xs">In Danger</span></td></tr>
-              <tr><td class="py-2 font-semibold">Nia</td><td>Sera</td><td><span class="font-bold text-emerald-600">22/24</span></td><td>17</td><td><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs">Stable</span></td></tr>
-              <tr><td class="py-2 font-semibold">Tessa</td><td>Veyra</td><td><span class="font-bold text-emerald-600">19/20</span></td><td>13</td><td><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs">Stable</span></td></tr>
-              <tr><td class="py-2 font-semibold">Omar</td><td>Bran</td><td><span class="font-bold text-amber-600">11/28</span></td><td>16</td><td><span class="px-2 py-0.5 rounded bg-amber-100 text-amber-700 text-xs">Pressured</span></td></tr>
+            <tbody class="divide-y divide-candle-700/25">
+              <tr><td class="py-2 font-bold">Rob</td><td>Korin</td><td class="font-bold text-red-700">8/31</td><td>3,400</td><td>15</td><td><span class="rounded border border-red-700/40 bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-800">In Danger</span></td></tr>
+              <tr><td class="py-2 font-bold">Nia</td><td>Sera</td><td class="font-bold text-emerald-700">22/24</td><td>4,200</td><td>17</td><td><span class="rounded border border-emerald-700/40 bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">Stable</span></td></tr>
+              <tr><td class="py-2 font-bold">Tessa</td><td>Veyra</td><td class="font-bold text-emerald-700">19/20</td><td>3,900</td><td>13</td><td><span class="rounded border border-emerald-700/40 bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">Stable</span></td></tr>
+              <tr><td class="py-2 font-bold">Omar</td><td>Bran</td><td class="font-bold text-amber-700">11/28</td><td>3,550</td><td>16</td><td><span class="rounded border border-amber-700/40 bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800">Pressured</span></td></tr>
             </tbody>
           </table>
         </div>
-      </div>
+      </article>
 
-      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4 reveal" style="animation-delay:.08s">
+      <article class="rounded-2xl bg-candle-50 panel-line p-4 shadow-folio reveal" style="animation-delay:.08s">
         <div class="flex items-center justify-between">
-          <h2 class="font-bold">World Rule Changes</h2>
-          <button class="text-xs rounded-md border px-2 py-1 hover:bg-slate-50">Add Entry</button>
+          <h2 class="font-heading text-lg text-ink-900">World Rule Changes</h2>
+          <button class="rounded-md border-2 border-candle-700 bg-candle-100 px-2 py-1 text-xs font-bold text-candle-900 hover:bg-candle-200">Add Entry</button>
         </div>
         <ul class="mt-3 space-y-2 text-sm">
-          <li class="rounded-lg border p-2"><b>Orc</b> species availability changed to <b>Disabled</b>. <span class="text-slate-500">Impacts 0 characters</span></li>
-          <li class="rounded-lg border p-2"><b>Cleric spell table</b> updated levels 2-4. <span class="text-slate-500">Impacts 2 characters</span></li>
-          <li class="rounded-lg border p-2"><b>Potion of Focus</b> added to world items. <span class="text-slate-500">No conflicts</span></li>
+          <li class="rounded-lg border-2 border-candle-700/35 bg-candle-100 p-2"><b>Orc</b> set to <b>Disabled</b>. <span class="text-candle-800">Impacts 0</span></li>
+          <li class="rounded-lg border-2 border-candle-700/35 bg-candle-100 p-2"><b>Cleric progression</b> updated levels 2-4. <span class="text-candle-800">Impacts 2</span></li>
+          <li class="rounded-lg border-2 border-candle-700/35 bg-candle-100 p-2"><b>Potion of Focus</b> added. <span class="text-candle-800">No conflicts</span></li>
         </ul>
-      </div>
+      </article>
     </section>
 
     <section class="lg:col-span-4 space-y-4 reveal" style="animation-delay:.12s">
-      <div class="rounded-2xl bg-ink-900 text-slate-100 p-4 shadow-sm">
-        <h2 class="font-bold">Dice & Event Stream</h2>
+      <article class="rounded-2xl border-2 border-ink-800 bg-ink-900 p-4 text-candle-100 shadow-folio">
+        <h2 class="font-heading text-lg">Dice & Event Chronicle</h2>
         <ul class="mt-3 space-y-2 text-sm max-h-[430px] overflow-auto pr-1">
-          <li class="rounded bg-white/10 p-2">GM Samantha rolled <code class="text-lime-300">d20</code> = <b>8</b></li>
-          <li class="rounded bg-white/10 p-2">Rob rolled <code class="text-lime-300">2d8+1</code> = <b>12</b></li>
-          <li class="rounded bg-white/10 p-2">System: Korin HP 12 -> 8 by GM</li>
-          <li class="rounded bg-white/10 p-2">System: XP update blocked (GM-only field)</li>
-          <li class="rounded bg-white/10 p-2">Nia rolled <code class="text-lime-300">d20+6</code> = <b>17</b></li>
-          <li class="rounded bg-white/10 p-2">GM spawned encounter: Ghoul Scout x2</li>
-          <li class="rounded bg-white/10 p-2">Tessa rolled <code class="text-lime-300">d20+5</code> = <b>21</b></li>
+          <li class="rounded border border-candle-100/25 bg-white/10 p-2">GM Samantha rolled <code class="text-candle-200">d20</code> = <b>8</b></li>
+          <li class="rounded border border-candle-100/25 bg-white/10 p-2">Rob rolled <code class="text-candle-200">2d8+1</code> = <b>12</b></li>
+          <li class="rounded border border-candle-100/25 bg-white/10 p-2">System: Korin HP 12 -> 8 by GM</li>
+          <li class="rounded border border-candle-100/25 bg-white/10 p-2">System: XP update blocked (GM-only)</li>
+          <li class="rounded border border-candle-100/25 bg-white/10 p-2">Nia rolled <code class="text-candle-200">d20+6</code> = <b>17</b></li>
+          <li class="rounded border border-candle-100/25 bg-white/10 p-2">GM spawned encounter: Ghoul Scout x2</li>
+          <li class="rounded border border-candle-100/25 bg-white/10 p-2">Tessa rolled <code class="text-candle-200">d20+5</code> = <b>21</b></li>
         </ul>
-      </div>
+      </article>
 
-      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
-        <h2 class="font-bold">GM Timeline</h2>
-        <div class="mt-3 space-y-2 text-sm text-slate-700">
-          <div class="border-l-2 border-forge-500 pl-2">00:12 - Shrine runes begin glowing.</div>
-          <div class="border-l-2 border-forge-500 pl-2">00:20 - Trigger scout ambush if torchlight seen.</div>
-          <div class="border-l-2 border-forge-500 pl-2">00:35 - Reveal hidden passage after Arcana 18+.</div>
+      <article class="rounded-2xl bg-candle-50 panel-line p-4 shadow-folio">
+        <h2 class="font-heading text-lg text-ink-900">GM Timeline</h2>
+        <div class="mt-3 space-y-2 text-sm text-candle-900">
+          <div class="border-l-4 border-candle-600 pl-2">00:12 - Shrine runes begin glowing.</div>
+          <div class="border-l-4 border-candle-600 pl-2">00:20 - Trigger scout ambush if torchlight seen.</div>
+          <div class="border-l-4 border-candle-600 pl-2">00:35 - Reveal hidden passage after Arcana 18+.</div>
+          <div class="border-l-4 border-candle-600 pl-2">00:47 - NPC Tovin offers secret route if trusted.</div>
         </div>
-      </div>
+      </article>
     </section>
 
     <aside class="lg:col-span-3 space-y-4 reveal" style="animation-delay:.16s">
-      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
-        <h2 class="font-bold">Quick Actions</h2>
+      <article class="rounded-2xl bg-candle-50 panel-line p-4 shadow-folio">
+        <h2 class="font-heading text-lg text-ink-900">Quick Actions</h2>
         <div class="mt-3 grid gap-2 text-sm">
-          <button class="rounded-lg bg-forge-600 text-white py-2 font-semibold hover:bg-forge-700">Adjust HP</button>
-          <button class="rounded-lg border py-2 font-semibold hover:bg-slate-50">Approve Inventory Transfer</button>
-          <button class="rounded-lg border py-2 font-semibold hover:bg-slate-50">Push Story Note</button>
-          <button class="rounded-lg border py-2 font-semibold hover:bg-slate-50">Lock Player Field Editing</button>
+          <button class="rounded-lg border-2 border-arcane-700 bg-arcane-500 py-2 font-bold text-white hover:bg-arcane-700">Adjust HP</button>
+          <button class="rounded-lg border-2 border-candle-700 bg-candle-100 py-2 font-bold text-candle-900 hover:bg-candle-200">Approve Inventory Transfer</button>
+          <button class="rounded-lg border-2 border-candle-700 bg-candle-100 py-2 font-bold text-candle-900 hover:bg-candle-200">Push Story Note</button>
+          <button class="rounded-lg border-2 border-candle-700 bg-candle-100 py-2 font-bold text-candle-900 hover:bg-candle-200">Lock Player Editing</button>
         </div>
-      </div>
+      </article>
 
-      <div class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
-        <h2 class="font-bold">Permission Matrix</h2>
+      <article class="rounded-2xl bg-candle-50 panel-line p-4 shadow-folio">
+        <h2 class="font-heading text-lg text-ink-900">Permission Matrix</h2>
         <ul class="mt-3 space-y-2 text-sm">
-          <li class="rounded border p-2"><b>HP:</b> Player + GM</li>
-          <li class="rounded border p-2"><b>XP/Level:</b> GM only</li>
-          <li class="rounded border p-2"><b>Loadout:</b> Player + GM</li>
-          <li class="rounded border p-2"><b>World Rules:</b> GM/Co-GM</li>
+          <li class="rounded border-2 border-candle-700/35 bg-candle-100 p-2"><b>HP:</b> Player + GM</li>
+          <li class="rounded border-2 border-candle-700/35 bg-candle-100 p-2"><b>XP/Level:</b> GM only</li>
+          <li class="rounded border-2 border-candle-700/35 bg-candle-100 p-2"><b>Loadout:</b> Player + GM</li>
+          <li class="rounded border-2 border-candle-700/35 bg-candle-100 p-2"><b>World Rules:</b> GM/Co-GM</li>
         </ul>
-      </div>
+      </article>
+
+      <article class="rounded-2xl bg-candle-50 panel-line p-3 shadow-folio text-xs text-candle-900">
+        <p class="font-heading uppercase tracking-wide">Style Reference</p>
+        <div class="mt-2 grid grid-cols-2 gap-2">
+          <img src="../../ui/moodboard-comps/Candlelit_Chronicle-4.png" alt="Candlelit reference" class="h-16 w-full rounded border-2 border-candle-700/50 object-cover" />
+          <img src="../../ui/moodboard-comps/Scholarly_Arcana-3.png" alt="Scholarly reference" class="h-16 w-full rounded border-2 border-candle-700/50 object-cover" />
+        </div>
+      </article>
     </aside>
   </main>
 </body>

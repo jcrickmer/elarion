@@ -1,0 +1,213 @@
+{
+  "instructions": "Rate each dimension 1-5 (1=low, 5=high). Add optional notes. Replace image_ref with filename or URL.",
+  "dimensions": [
+    "theme_fit_fantasy_imagination",
+    "ui_readability_potential",
+    "gm_density_compatibility",
+    "player_emotional_resonance",
+    "distinctiveness_vs_generic_saas"
+  ],
+  "directions": [
+    {
+      "direction": "Scholarly Arcana",
+      "images": [
+        {
+          "image_ref": "moodboard-comps/Scholarly_Arcana-1.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 4,
+            "ui_readability_potential": 3,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 4,
+            "distinctiveness_vs_generic_saas": 3
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Scholarly_Arcana-2.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 2,
+            "ui_readability_potential": 4,
+            "gm_density_compatibility": 3,
+            "player_emotional_resonance": 3,
+            "distinctiveness_vs_generic_saas": 2
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Scholarly_Arcana-3.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 5,
+            "ui_readability_potential": 3,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 5,
+            "distinctiveness_vs_generic_saas": 4
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Scholarly_Arcana-4.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 4,
+            "ui_readability_potential": 5,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 4,
+            "distinctiveness_vs_generic_saas": 3
+          },
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "direction": "Rugged Expedition",
+      "images": [
+        {
+          "image_ref": "moodboard-comps/Rugged_Expedition-1.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 2,
+            "ui_readability_potential": 3,
+            "gm_density_compatibility": 2,
+            "player_emotional_resonance": 4,
+            "distinctiveness_vs_generic_saas": 3
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Rugged_Expedition-2.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 2,
+            "ui_readability_potential": 2,
+            "gm_density_compatibility": 2,
+            "player_emotional_resonance": 2,
+            "distinctiveness_vs_generic_saas": 3
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Rugged_Expedition-3.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 5,
+            "ui_readability_potential": 4,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 4,
+            "distinctiveness_vs_generic_saas": 2
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Rugged_Expedition-4.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 3,
+            "ui_readability_potential": 4,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 3,
+            "distinctiveness_vs_generic_saas": 1
+          },
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "direction": "Candlelit Chronicle",
+      "images": [
+        {
+          "image_ref": "moodboard-comps/Candlelit_Chronicle-1.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 2,
+            "ui_readability_potential": 2,
+            "gm_density_compatibility": 3,
+            "player_emotional_resonance": 3,
+            "distinctiveness_vs_generic_saas": 2
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Candlelit_Chronicle-2.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 2,
+            "ui_readability_potential": 4,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 3,
+            "distinctiveness_vs_generic_saas": 2
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Candlelit_Chronicle-3.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 3,
+            "ui_readability_potential": 4,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 3,
+            "distinctiveness_vs_generic_saas": 3
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/Candlelit_Chronicle-4.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 5,
+            "ui_readability_potential": 5,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 5,
+            "distinctiveness_vs_generic_saas": 4
+          },
+          "notes": "Used this prompt: Working in a style of comic-style line art and coloring, leaning into a cross between Celtic filigree and warm, expertly crafted anime or manga, please create an image for: Story chronicle tableau, lantern-lit notes and maps, intimate mood, no figures"
+        }
+      ]
+    },
+    {
+      "direction": "High Mythic",
+      "images": [
+        {
+          "image_ref": "moodboard-comps/High_Mythic-1.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 4,
+            "ui_readability_potential": 3,
+            "gm_density_compatibility": 2,
+            "player_emotional_resonance": 2,
+            "distinctiveness_vs_generic_saas": 2
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/High_Mythic-2.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 4,
+            "ui_readability_potential": 4,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 3,
+            "distinctiveness_vs_generic_saas": 4
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/High_Mythic-3.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 4,
+            "ui_readability_potential": 2,
+            "gm_density_compatibility": 2,
+            "player_emotional_resonance": 3,
+            "distinctiveness_vs_generic_saas": 2
+          },
+          "notes": ""
+        },
+        {
+          "image_ref": "moodboard-comps/High_Mythic-4.png",
+          "scores": {
+            "theme_fit_fantasy_imagination": 3,
+            "ui_readability_potential": 5,
+            "gm_density_compatibility": 4,
+            "player_emotional_resonance": 3,
+            "distinctiveness_vs_generic_saas": 4
+          },
+          "notes": "Liked the engraving. design style is good. Marbling is too high-contrast and aggressive."
+        }
+      ]
+    }
+  ],
+  "selection": {
+    "top_1_direction": "Candlelit Chronicles",
+    "top_2_direction": "Scholarly Arcana",
+    "rationale": "Specific to the images, it was the thicker lines and artistic styling of 'moodboard-comps/Candlelit_Chronicle-4.png' that makes that the top pick. Most of the High Mythic was actually not in the direction I liked, but 'moodboard-comps/High_Mythic-4.png' stood out with its clear high-contrast look. Content and concept of Scholarly Arcana beats out High Mythic because the spell book style made it easy to imagine how information would be displayed in the UI."
+  }
+}
