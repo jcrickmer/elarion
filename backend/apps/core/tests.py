@@ -96,6 +96,32 @@ class TestHomePage(TestCase):
         self.assertContains(response, "Your Elarion Dashboard")
 
 
+class TestTailwindFoundation(TestCase):
+    def test_tailwind_output_css_file_exists(self):
+        css_path = Path(__file__).resolve().parents[3] / "frontend" / "static" / "css" / "main.css"
+        self.assertTrue(css_path.exists())
+
+    def test_tailwind_css_is_linked_on_public_templates(self):
+        home = self.client.get(reverse("home"))
+        login = self.client.get(reverse("login"))
+        signup = self.client.get(reverse("signup"))
+        product_overview = self.client.get(reverse("product_overview"))
+
+        for response in [home, login, signup, product_overview]:
+            self.assertContains(response, '/static/css/main.css')
+
+    def test_tailwind_css_is_linked_on_dashboard_template(self):
+        user = get_user_model().objects.create_user(
+            username="tailwind_user",
+            email="tailwind_user@example.com",
+            password="StrongPass123!",
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("dashboard"))
+        self.assertContains(response, '/static/css/main.css')
+
+
 class TestSignupFlow(TestCase):
     def test_signup_page_loads(self):
         response = self.client.get(reverse("signup"))

@@ -1,0 +1,13 @@
+{
+  "name": "elarion-ui",
+  "private": true,
+  "version": "0.1.0",
+  "description": "UI build tooling for Elarion Django templates",
+  "scripts": {
+    "ui:build": "tailwindcss -i ./frontend/static/src/tailwind.css -o ./frontend/static/css/main.css --minify",
+    "ui:watch": "tailwindcss -i ./frontend/static/src/tailwind.css -o ./frontend/static/css/main.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

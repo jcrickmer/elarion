@@ -27,6 +27,27 @@ The setup command creates the local SQLite database path and applies all Django 
 
 `make test` runs `check-migrations` first, then executes Django tests.
 
+## Tailwind UI Pipeline (DEV-59)
+- Install Node dependencies:
+  `make ui-install`
+- Build production CSS from Tailwind source:
+  `make ui-build`
+- Run Tailwind in watch mode during template work:
+  `make ui-watch`
+
+Tailwind source and output paths:
+- Source entrypoint: `frontend/static/src/tailwind.css`
+- Compiled output: `frontend/static/css/main.css`
+- Config: `tailwind.config.js`
+
+The source includes base theme tokens and reusable UI primitives:
+- `.ui-shell`
+- `.ui-card`
+- `.ui-btn-primary`
+- `.ui-btn-secondary`
+- `.ui-input`
+- `.ui-alert` / `.ui-alert-error` / `.ui-alert-success`
+
 ## Authentication Security Defaults
 - Password hashing uses Django's built-in secure password hashing.
 - Session/CSRF cookies are HTTP-only and `SameSite=Lax` by default.

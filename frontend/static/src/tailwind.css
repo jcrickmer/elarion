@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --elarion-bg: #fdf7ee;
+    --elarion-surface: #f8ecd7;
+    --elarion-ink: #19120f;
+    --elarion-accent: #2f5d85;
+    --elarion-accent-warm: #ae6838;
+    --elarion-danger: #b23a48;
+    --elarion-success: #1f7a4c;
+  }
+
+  body {
+    @apply bg-brand-parchment text-brand-ink antialiased;
+  }
+}
+
+@layer components {
+  .ui-shell {
+    @apply mx-auto max-w-7xl px-4 py-6;
+  }
+
+  .ui-card {
+    @apply rounded-2xl border-2 border-brand-accentWarm/40 bg-white shadow-folio;
+  }
+
+  .ui-btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg border-2 border-brand-accent bg-brand-accent px-3 py-2 text-sm font-semibold text-white hover:bg-brand-ink;
+  }
+
+  .ui-btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg border-2 border-brand-accentWarm bg-brand-parchment px-3 py-2 text-sm font-semibold text-brand-ink hover:bg-brand-surface;
+  }
+
+  .ui-input {
+    @apply w-full rounded-lg border-2 border-brand-accentWarm/50 bg-white px-3 py-2 text-brand-ink focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/30;
+  }
+
+  .ui-alert {
+    @apply rounded-lg border-2 px-3 py-2 text-sm;
+  }
+
+  .ui-alert-error {
+    @apply border-brand-danger/60 bg-red-50 text-red-900;
+  }
+
+  .ui-alert-success {
+    @apply border-brand-success/60 bg-emerald-50 text-emerald-900;
+  }
+}

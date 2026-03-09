@@ -213,3 +213,7 @@ __marimo__/
 
 # MacOS
 .DS_Store
+
+# Node / Tailwind tooling
+node_modules/
+.npm-cache/

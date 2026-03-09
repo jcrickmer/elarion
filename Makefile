@@ -1,7 +1,7 @@
 PYTHON := .venv/bin/python
 MANAGE := backend/manage.py
 
-.PHONY: setup check-migrations seed-dev-data seed-dev-data-reset seed-srd-baseline backup-db restore-db test test-report
+.PHONY: setup check-migrations seed-dev-data seed-dev-data-reset seed-srd-baseline backup-db restore-db test test-report ui-install ui-build ui-watch
 setup:
 	$(PYTHON) $(MANAGE) bootstrap_dev_db
 
@@ -37,3 +37,12 @@ test-report:
 		echo "No runtime report found. Run 'make test' first."; \
 		exit 1; \
 	fi
+
+ui-install:
+	NPM_CONFIG_CACHE=.npm-cache npm install
+
+ui-build:
+	NPM_CONFIG_CACHE=.npm-cache npm run ui:build
+
+ui-watch:
+	NPM_CONFIG_CACHE=.npm-cache npm run ui:watch
